@@ -33,7 +33,8 @@ capstone-fl-traffic/
 │       ├── seed.py
 │       └── logging.py
 ├── experiments/
-│   └── run_experiment.py           # entrypoint: load config -> chạy FL simulation
+│   ├── run_experiment.py           # entrypoint: load config -> chạy FL simulation
+│   └── benchmark_compute.py        # đo t_epoch_shard, ước tính thời gian FL
 ├── notebooks/                      # EDA, phân tích
 ├── results/                        # log csv/json, wandb — không commit file lớn
 ├── report/                         # LaTeX báo cáo (Overleaf sync)
@@ -43,6 +44,7 @@ capstone-fl-traffic/
 │   ├── 02_API_SPEC.md              # spec config / API FL (nếu có server)
 │   ├── 03_DATA_SCHEMA.md           # schema dữ liệu traffic
 │   ├── 04_PLAN_DESIGN.md           # thiết kế adaptive aggregation
+│   ├── 05_COMPUTE_RESOURCES.md     # khảo sát nguồn compute & hiệu năng
 │   ├── USER_GUIDE.md               # hướng dẫn chạy experiment
 │   └── model_card.md               # model card
 ├── assets/

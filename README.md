@@ -50,6 +50,7 @@ Chi tiết xem `docs/00_PROJECT_STRUCTURE.md`.
 - Data schema: xem `docs/03_DATA_SCHEMA.md`
 - API / config spec: xem `docs/02_API_SPEC.md`
 - Thiết kế & luồng FL: xem `docs/04_PLAN_DESIGN.md`
+- Nguồn compute & hiệu năng: xem `docs/05_COMPUTE_RESOURCES.md`
 - Hướng dẫn sử dụng: xem `docs/USER_GUIDE.md`
 
 ## Git workflow

@@ -1,0 +1,21 @@
+# Dùng cho RTX3060 6GB cá nhân — debug nhanh, ~1.2h/exp
+experiment: fedavg_6gb_debug
+seed: 42
+dataset:
+  name: METR-LA
+  hist_len: 12
+  pred_len: 12
+fl:
+  strategy: fedavg
+  num_clients: 10
+  num_rounds: 20
+  client_fraction: 0.3
+  local_epochs: 2
+model:
+  backbone: stgcn
+  hidden_dim: 32
+train:
+  batch_size: 32
+  amp: true
+  grad_accum: 2
+  lr: 0.001
