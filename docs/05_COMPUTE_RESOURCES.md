@@ -1,6 +1,6 @@
 # 05 — Khảo sát & Chốt nguồn Compute — FL Traffic Forecasting
 
-**Ngày:** 2026-09-17 | **Tác giả:** Tuấn | **Trạng thái:** chốt phương án, đang chờ xác nhận quota ESC
+**Ngày:** 2026-09-17 (sửa 2026-09-17: bỏ ESC — ESC là công ty, không liên quan đồ án) | **Tác giả:** Tuấn | **Trạng thái:** chốt phương án
 
 ## 1. Mục tiêu compute
 
@@ -18,9 +18,9 @@ Yêu cầu tối thiểu: chạy 1 experiment end-to-end <6h, grid 10–15 confi
 | **A. GPU cá nhân (máy Tuấn)** | `NVIDIA GeForce RTX 3060 Laptop GPU 6GB` + `Intel i9-12900H 14C/20T` + `15.6GB RAM` + `473GB NVMe (46% used)` <br> Driver 610.57.04, CUDA 13.3 (kiểm tra `nvidia-smi 2026-09-17`) | 6GB / 15GB | Không giới hạn, điện nhà | 0đ | Dev local, debug, chạy 1–2 exp nhỏ, Flower simulation `ray` sequential (không fit 10 clients // trên GPU 6GB) |
 | **B. Google Colab Pro** | Pro: `T4 16GB` hoặc `L4 24GB` (2025-2026), Pro+: `A100 40GB`. RAM 12–25GB, runtime 12–24h/session, background execution | 16–40GB | ~100 compute units/tháng (~50h T4) | ~11$/tháng (Pro, giá 2026) | Burst khi cần A100, dễ mount Drive/GCS, nhưng queue + timeout, không ổn định cho long-run FL |
 | **C. Kaggle GPU** | `T4 x2 16GB` hoặc `P100 16GB`, CPU 4c/30GB RAM, disk 20GB + dataset 50GB, Internet off default | 16GB (x2) | **30h GPU/week** (quota user báo), 20h extra nếu verify phone. Note: Kaggle reset Chủ nhật 00:00 UTC | 0đ | Grid search, chạy 5–8 exp song song theo tuần, code phải checkpoint `results/` → commit dataset |
-| **D. Server trường / ESC Lab** | *Chưa chốt specs* — cần liên hệ admin ESC. Dự kiến (tham khảo 2024–2025): `RTX 3090/4090 24GB` hoặc `A5000 24GB` cluster, SSH, Slurm | 24GB+ / 64GB+ | Theo slot đăng ký (thường 48h/job) | 0đ (nội bộ) | Chạy final benchmark, sweep lớn, lưu checkpoint lâu dài. Là nguồn chính cho paper |
+| **D. Server trường (nếu có)** | *Chưa xác nhận — cần hỏi khoa/phòng lab xem có cấp GPU không*. Nếu có thường là `RTX 3090/4090 24GB` hoặc `A5000 24GB` qua SSH/Slurm | 24GB+ / 64GB+ | Theo slot đăng ký (thường 48h/job) | 0đ (nội bộ) | Chỉ tính nếu trường cấp; không thì dùng Vast.ai thuê ngoài |
 
-> **Kết luận chốt (đề xuất):** Dùng **A cá nhân** cho dev/debug + unit test + 1 baseline nhỏ. Dùng **C Kaggle 30h/w** làm worker chính cho sweep 10 configs/tuần. Dùng **B Colab Pro** làm backup khi Kaggle hết quota hoặc cần A100 40GB cho DCRNN 325 nodes. Chốt **D ESC server** làm nguồn final (cần xác nhận quota ngay).
+> **Kết luận chốt (đề xuất):** Dùng **A cá nhân** cho dev/debug + unit test + 1 baseline nhỏ. Dùng **C Kaggle 30h/w** làm worker chính cho sweep 10 configs/tuần. Dùng **B Colab Pro** làm backup khi Kaggle hết quota hoặc cần A100 40GB cho DCRNN 325 nodes. **D Server trường** chỉ là optional — nếu không có thì chốt Vast.ai `RTX4090 24GB ~0.5$/h` cho final run.
 
 ## 3. Ước tính hiệu năng có thể đạt được
 
@@ -46,18 +46,18 @@ Công thức: `T ≈ num_rounds * (fraction_fit*num_clients*local_epochs*t_epoch
 |---|---|---|---|
 | **A RTX3060 6GB** | **4.5–6h** (batch 32, sequential, RAM 15GB đủ, VRAM sát nút) | 45–60h (~1 tuần, không sleep) | Batch >32 dễ OOM với 325 nodes → phải giảm batch 16, thời gian x1.5 |
 | **T4 16GB (Kaggle/Colab)** | **2.5–3.5h** (batch 64) | 25–35h → vừa trong 30h Kaggle/tuần nếu tối ưu 5–7 exp | T4x2 Kaggle có thể chạy 2 exp // nếu RAM đủ |
-| **A100 40GB (Colab Pro+ / ESC)** | **1.2–1.8h** | 12–18h | Đủ VRAM chạy 10 clients // bằng `ray` hoặc `flwr simulation` với concurrency |
+| **A100 40GB (Colab Pro+ / Server trường)** | **1.2–1.8h** | 12–18h | Đủ VRAM chạy 10 clients // bằng `ray` hoặc `flwr simulation` với concurrency |
 
 **Suy ra hiệu năng đạt được với combo A+C+B:**
 - Với 30h Kaggle + cá nhân không giới hạn: **~7–10 exp hoàn chỉnh / tuần** (đủ cho baseline FedAvg/FedProx/SCAFFOLD/FedRep/Ditto = 5 exp + 3 ablation).
-- Nếu có ESC 24GB: **~20–25 exp / tuần**, đủ cho sweep hyperparam adaptive (lr, weight heterogeneity/freshness).
+- Nếu có server trường 24GB: **~20–25 exp / tuần**, đủ cho sweep hyperparam adaptive (lr, weight heterogeneity/freshness).
 
 ### 3.3 Giới hạn & rủi ro
 
 - **RTX3060 6GB OOM:** PeMS-BAY 325 nodes + ST-GCN batch 64 → ~9GB, bắt buộc batch 16–32 hoặc `torch.cuda.amp`. Cần implement gradient accumulation.
 - **Kaggle 30h/w:** Không cumulable, reset Chủ nhật. Job >9h sẽ bị kill. Phải checkpoint mỗi round → `results/checkpoints/`.
 - **Colab timeout:** 12h idle, cần `wandb` + Drive sync.
-- **ESC chưa chốt:** Nếu ESC không cấp GPU trước tháng 10, phương án fallback là thuê Vast.ai `RTX4090 24GB ~0.5$/h` cho final run (~20h ≈10$).
+- **Server trường chưa chốt:** Nếu trường không cấp GPU trước tháng 10, phương án fallback là thuê Vast.ai `RTX4090 24GB ~0.5$/h` cho final run (~20h ≈10$).
 
 ### 3.4 Khuyến nghị config để fit 6GB
 
@@ -69,13 +69,13 @@ model: {backbone: stgcn, hidden_dim: 32}
 train: {batch_size: 32, amp: true, grad_accum: 2}
 ```
 
-Với config này 1 exp chỉ ~1.2h trên RTX3060, dùng để debug trước khi scale 50 rounds trên Kaggle/ESC.
+Với config này 1 exp chỉ ~1.2h trên RTX3060, dùng để debug trước khi scale 50 rounds trên Kaggle/Colab/server trường.
 
 ## 4. Kế hoạch chốt nguồn (action items)
 
 - [x] Đo máy cá nhân: RTX3060 6GB / i9-12900H / 15GB RAM (done 2026-09-17)
 - [x] Xác nhận Kaggle 30h GPU/week (user báo) — tạo notebook `capstone-fl-traffic-kaggle.ipynb` với checkpoint
-- [ ] **Tuấn: gửi mail admin ESC** xin quota GPU (template ở `docs/assets/esc_request.md`), hỏi specs, Slurm queue, thời hạn đăng ký
+- [ ] **Tuấn: hỏi khoa/phòng lab** xem có server GPU trường cấp cho đồ án không (specs, Slurm queue, thời hạn) — ESC là công ty nên bỏ khỏi phạm vi đồ án
 - [ ] Đăng ký Colab Pro (11$/th) — chỉ active khi Kaggle cạn hoặc cần A100
 - [ ] Viết script benchmark `experiments/benchmark_compute.py` (đã tạo skeleton) để đo `t_epoch_shard` thực tế trên từng nguồn và cập nhật bảng §3
 - [ ] Thống nhất lưu kết quả: `results/` + wandb project `capstone-fl-traffic`, không commit file >10MB (theo `.gitignore`)
@@ -95,4 +95,4 @@ free -h; lscpu | grep "Tên mô hình"
 python experiments/benchmark_compute.py --dry-run  # ước tính không cần GPU
 ```
 
-> Cập nhật tiếp khi có phản hồi ESC và kết quả benchmark thực tế trên Kaggle/Colab.
+> Cập nhật tiếp khi có phản hồi server trường và kết quả benchmark thực tế trên Kaggle/Colab.
