@@ -1,0 +1,14 @@
+experiment: baseline_fedavg
+seed: 42
+dataset:
+  name: METR-LA
+  hist_len: 12
+  pred_len: 12
+fl:
+  strategy: fedavg
+  num_clients: 10
+  num_rounds: 50
+  local_epochs: 5
+model:
+  backbone: stgcn
+  hidden_dim: 64

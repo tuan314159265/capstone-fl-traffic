@@ -1,0 +1,46 @@
+# data — không commit dataset thật
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# model checkpoints, logs
+*.pt
+*.pth
+*.ckpt
+wandb/
+results/*.csv
+results/*.json
+!results/.gitkeep
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# env / secrets — chỉ commit .env.example
+.env
+!.env.example
+
+# report build artifacts (Overleaf)
+report/*.aux
+report/*.log
+report/*.pdf
+report/*.synctex.gz
+report/*.fls
+report/*.fdb_latexmk
+report/*.out
+report/*.toc
+report/*.bbl
+report/*.blg
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
