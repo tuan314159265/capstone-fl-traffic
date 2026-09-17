@@ -1,6 +1,6 @@
 # 05 — Khảo sát & Chốt nguồn Compute — FL Traffic Forecasting
 
-**Ngày:** 2026-09-17 (sửa 2026-09-17: bỏ ESC — ESC là công ty, không liên quan đồ án) | **Tác giả:** Tuấn | **Trạng thái:** chốt phương án
+**Ngày:** 2026-09-17 | **Tác giả:** Tuấn | **Trạng thái:** chốt phương án
 
 ## 1. Mục tiêu compute
 
