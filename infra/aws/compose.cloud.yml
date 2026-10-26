@@ -1,0 +1,35 @@
+services:
+  db:
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  collector:
+    profiles: [collect]
+    build:
+      context: .
+      dockerfile: infra/aws/Dockerfile.collector
+    restart: "no"
+    environment:
+      API_TOMTOM: ${API_TOMTOM:?Set API_TOMTOM in .env}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-capstone}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-capstone_traffic}
+    command:
+      - --points
+      - data/sample_tomtom_ben_thanh_15.json
+      - --workers
+      - "4"
+      - --max-cycles
+      - "1"
+    depends_on:
+      db:
+        condition: service_healthy
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

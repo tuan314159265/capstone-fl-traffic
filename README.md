@@ -13,9 +13,34 @@ cp .env.example .env  # điền giá trị thật
 
 ## Chạy thử
 
+Pipeline thử hiện tại dùng Flower FedAvg, GRU nhỏ và dữ liệu giả, chạy trong
+container CPU giới hạn RAM trên EC2 đã cấu hình:
+
 ```bash
-python experiments/run_experiment.py --config configs/baseline_fedavg.yaml
+python infra/aws/run_fl_smoke.py
 ```
+
+Xem `docs/09_FEDAVG_SMOKE.md`. Kết quả dùng kiểm tra pipeline, chưa phải đánh giá
+dự báo giao thông. Các config METR-LA/ST-GCN đang là thiết kế, chưa chạy được bằng
+runner này.
+
+## Thu thập traffic mẫu vào PostgreSQL/PostGIS
+
+Prototype database và collector TomTom được hướng dẫn tại `docs/07_POSTGIS_PROTOTYPE.md`. Bước nhanh:
+
+```bash
+docker compose up -d db
+python -m pip install 'psycopg[binary]>=3.2' requests
+python data/scripts/collect_tomtom.py
+```
+
+Collector dùng các nút giao mẫu trong `data/sample_intersections.json`; key đọc từ `.env` và không được in ra log. Nút giao được gán nguồn riêng; Waze partner feed có collector riêng:
+
+```bash
+python data/scripts/collect_waze_feed.py
+```
+
+Google Routes chỉ được cấu hình làm nguồn đối chiếu tuyến; theo điều khoản mặc định, không lưu phản hồi Routes vào database/tập huấn luyện.
 
 ## Cấu trúc thư mục
 

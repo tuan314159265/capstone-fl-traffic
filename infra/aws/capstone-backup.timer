@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily PostGIS backup, retaining seven days on the EBS disk
+
+[Timer]
+OnCalendar=*-*-* 18:00:00 UTC
+Persistent=true
+Unit=capstone-backup.service
+
+[Install]
+WantedBy=timers.target

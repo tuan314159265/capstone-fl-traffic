@@ -1,5 +1,5 @@
 torch>=2.0
-flwr>=1.8
+flwr==1.42.0
 numpy
 pandas
 scikit-learn
@@ -7,3 +7,4 @@ pyyaml
 matplotlib
 tqdm
 wandb
+psycopg[binary]>=3.2

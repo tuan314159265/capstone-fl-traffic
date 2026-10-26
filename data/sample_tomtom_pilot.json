@@ -1,0 +1,122 @@
+[
+  {
+    "intersection_id": "hcmc_ben_thanh",
+    "name": "Ben Thanh sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7722,
+    "longitude": 106.698,
+    "approach_label": "junction_center_candidate",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {}
+  },
+  {
+    "intersection_id": "hcmc_turtle_lake",
+    "name": "Turtle Lake sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7835,
+    "longitude": 106.6958,
+    "approach_label": "junction_center_candidate",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {}
+  },
+  {
+    "intersection_id": "hcmc_dinh_tien_hoang_le_duan",
+    "name": "Dinh Tien Hoang - Le Duan sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7892,
+    "longitude": 106.6996,
+    "approach_label": "junction_center_candidate",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {}
+  },
+  {
+    "intersection_id": "hcmc_hang_xanh",
+    "name": "Hang Xanh sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.8014,
+    "longitude": 106.7102,
+    "approach_label": "junction_center_candidate",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {}
+  },
+  {
+    "intersection_id": "hcmc_phu_nhuan",
+    "name": "Phu Nhuan sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7994,
+    "longitude": 106.6782,
+    "approach_label": "junction_center_candidate",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {}
+  },
+  {
+    "intersection_id": "hcmc_cong_hoa_hoang_hoa_tham",
+    "name": "Cong Hoa - Hoang Hoa Tham sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.803,
+    "longitude": 106.6525,
+    "approach_label": "junction_center_candidate",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {}
+  },
+  {
+    "intersection_id": "hcmc_truong_son_hong_ha",
+    "name": "Truong Son - Hong Ha sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.813,
+    "longitude": 106.6655,
+    "approach_label": "junction_center_candidate",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {}
+  },
+  {
+    "intersection_id": "hcmc_nguyen_van_linh_nguyen_huu_tho",
+    "name": "Nguyen Van Linh - Nguyen Huu Tho sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7114,
+    "longitude": 106.7028,
+    "approach_label": "junction_center_candidate",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {}
+  },
+  {
+    "intersection_id": "hcmc_cmt8_nguyen_thi_minh_khai",
+    "name": "Cach Mang Thang 8 - Nguyen Thi Minh Khai sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7728,
+    "longitude": 106.6818,
+    "approach_label": "junction_center_candidate",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {}
+  },
+  {
+    "intersection_id": "hcmc_dien_bien_phu_hai_ba_trung",
+    "name": "Dien Bien Phu - Hai Ba Trung sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7859,
+    "longitude": 106.6955,
+    "approach_label": "junction_center_candidate",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {}
+  }
+]

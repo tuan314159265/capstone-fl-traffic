@@ -12,11 +12,13 @@ wandb/
 results/*.csv
 results/*.json
 !results/.gitkeep
+results/fedavg_smoke*/
 
 # python
 __pycache__/
 *.pyc
 .venv/
+.venv-fl/
 venv/
 *.egg-info/
 .pytest_cache/
@@ -44,3 +46,12 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Terraform and local deployment credentials/state
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfvars.json
+infra/aws/.state/

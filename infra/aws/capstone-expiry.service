@@ -1,0 +1,11 @@
+[Unit]
+Description=Back up and stop the EC2 instance after the planned collection period
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl stop capstone-collector.timer
+ExecStart=/usr/bin/systemctl stop capstone-collector.service
+ExecStart=-/usr/bin/timeout 120 /bin/bash /opt/capstone-traffic/infra/aws/backup.sh
+ExecStart=/usr/sbin/shutdown -h now
+TimeoutStartSec=300

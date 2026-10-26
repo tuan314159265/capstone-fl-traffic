@@ -1,0 +1,9 @@
+[Unit]
+Description=Back up traffic PostGIS to the retained EBS disk
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /opt/capstone-traffic/infra/aws/backup.sh
+UMask=0077

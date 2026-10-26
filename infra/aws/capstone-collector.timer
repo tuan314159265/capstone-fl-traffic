@@ -1,0 +1,11 @@
+[Unit]
+Description=Collect traffic at every UTC quarter-hour
+
+[Timer]
+OnCalendar=*:0/15
+Persistent=true
+AccuracySec=1s
+Unit=capstone-collector.service
+
+[Install]
+WantedBy=timers.target

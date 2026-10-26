@@ -1,0 +1,41 @@
+[
+  {
+    "intersection_id": "hcmc_ben_thanh",
+    "name": "Ben Thanh sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7722,
+    "longitude": 106.6980,
+    "approach_label": "junction_center",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {}
+  },
+  {
+    "intersection_id": "hcmc_turtle_lake",
+    "name": "Turtle Lake sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7835,
+    "longitude": 106.6958,
+    "approach_label": "junction_center",
+    "assigned_provider": "google_maps",
+    "acquisition_mode": "routes_traffic_crosscheck",
+    "provider_config": {
+      "origin": {"latitude": 10.7828, "longitude": 106.6946},
+      "destination": {"latitude": 10.7844, "longitude": 106.6970}
+    }
+  },
+  {
+    "intersection_id": "hcmc_dinh_tien_hoang_le_duan",
+    "name": "Dinh Tien Hoang - Le Duan sample intersection",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7892,
+    "longitude": 106.6996,
+    "approach_label": "junction_center",
+    "assigned_provider": "waze",
+    "acquisition_mode": "partner_data_feed",
+    "provider_config": {"managed_area": "Ho Chi Minh City"}
+  }
+]

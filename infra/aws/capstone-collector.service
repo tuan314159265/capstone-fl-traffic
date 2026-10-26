@@ -1,0 +1,12 @@
+[Unit]
+Description=Collect a TomTom traffic snapshot into PostGIS
+Requires=docker.service
+After=docker.service network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/capstone-traffic
+ExecStart=/usr/bin/python3 /opt/capstone-traffic/infra/aws/run_snapshot.py
+TimeoutStartSec=240
+UMask=0077
