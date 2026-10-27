@@ -4,7 +4,7 @@ import torch
 from flwr.app import ArrayRecord, Message, MetricRecord, RecordDict
 from flwr.clientapp import ClientApp
 
-from src.data.synthetic import client_loaders
+from src.data.loaders import client_loaders
 from src.models.forecast import evaluate_model, make_model, train_local
 
 
@@ -19,7 +19,8 @@ def make_client_app(config):
         model = make_model(config)
         model.load_state_dict(message.content["arrays"].to_torch_state_dict())
         loader = client_loaders(config, client_id, round_id)["train"]
-        loss = train_local(model, loader, config["fl"]["local_epochs"], float(message.content["config"]["lr"]))
+        mu = config['fl'].get('proximal_mu', 0.0) if config['fl']['strategy'] == 'fedprox' else 0.0
+        loss = train_local(model, loader, config["fl"]["local_epochs"], float(message.content["config"]["lr"]), proximal_mu=mu)
         return Message(content=RecordDict({
             "arrays": ArrayRecord(model.state_dict()),
             "metrics": MetricRecord({"train_loss": loss, "num-examples": len(loader.dataset)}),

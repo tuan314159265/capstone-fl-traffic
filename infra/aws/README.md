@@ -14,14 +14,15 @@ Elastic IP, or AWS access key on the server is needed.
   collector image, without training dependencies.
 - `deploy.py`: uploads only the required files and installs systemd timers.
 - `terraform.tfvars.json`: local account, AMI, subnet, SSH public key and source IP.
-- `.state/cloud.env`: private TomTom key and separately generated DB password.
+- `.state/cloud.env`: private TomTom keys and separately generated DB password.
 - `.state/stop-at-utc.txt`: fixed stop deadline, 28 days after the first deployment.
 
 Terraform state, variable files, deployment archives and `.state/` are ignored by
 Git. Keep private backups of Terraform state and the SSH private key at
 `~/.ssh/capstone-traffic-aws`. No API keys or passwords are passed through
 Terraform, EC2 user data, or the Docker image. Only the TomTom key is copied from
-the project's original `.env`; unrelated provider keys are not uploaded.
+the project's original `.env`; the second account uses `API_TOMTOM_TRAFFIC`.
+Unrelated provider keys are not uploaded.
 
 ## Deploy and update
 
@@ -73,8 +74,10 @@ API calls and does not consume its request budget. The initial migration of
 
 ## Collection and budget
 
-`capstone-collector.timer` runs at every UTC quarter-hour. Each invocation queries
-15 candidate points around Ben Thanh with four workers, then exits. A failed
+`capstone-collector.timer` runs at every UTC quarter-hour. Each invocation runs
+two fixed groups sequentially: 15 Ben Thanh points with `API_TOMTOM`, and 15
+additional HCMC points with `API_TOMTOM_TRAFFIC`. Requests within a group use four
+workers. Group definitions are in `collection_groups.json`. A failed
 invocation is retried at the next quarter-hour; requests are not retried in a
 tight restart loop. Points commit independently so one bad point does not discard
 the other observations. Coordinates remain pilot candidates: validate returned
@@ -88,7 +91,11 @@ It reserves 15 before each invocation, including failed invocations. Once the
 limit is reached it pauses until the next UTC month. This permits about 12.5 days
 of quarter-hour sampling in a full calendar month, not uninterrupted four-week
 sampling. Usage by other machines or applications is not included in this local
-counter. Verify actual allowance/reset dates in the account dashboard before
+counter. The second group has an independent counter in
+`/var/lib/capstone-traffic/request-budget-traffic.json`, configured by
+`TOMTOM_TRAFFIC_MONTHLY_REQUEST_BUDGET` (also 18,000 by default). It includes the
+22 initial coverage probes exactly once. The original counter is preserved.
+Verify actual allowance/reset dates in each account dashboard before
 increasing the limit. A 40-minute cadence needs about 16,200 requests/30 days.
 
 To change budget, edit the private server `.env`. To change cadence, edit
@@ -156,3 +163,7 @@ Sources:
 - [EC2 Sydney public price list](https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/current/ap-southeast-2/index.csv)
 - [Public IPv4 pricing](https://aws.amazon.com/vpc/pricing/)
 - [TomTom pricing](https://docs.tomtom.com/pricing)
+
+The private map dashboard and its read-only PostGIS synchronization are described
+in [docs/10_DASHBOARD.md](../../docs/10_DASHBOARD.md). Its AWS container is limited
+to 192 MiB/0.25 CPU and opens no inbound network ports.

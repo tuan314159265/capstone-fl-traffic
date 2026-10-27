@@ -1,0 +1,11 @@
+.git
+.env
+.env.*
+.dashboard.env
+.venv*
+**/.state
+**/.terraform
+**/*.tfstate*
+results
+data/raw
+data/processed

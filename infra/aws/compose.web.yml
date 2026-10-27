@@ -1,0 +1,52 @@
+services:
+  web_auth:
+    build:
+      context: .
+      dockerfile: infra/aws/Dockerfile.web-auth
+    container_name: capstone-traffic-web-auth
+    restart: unless-stopped
+    user: "1000:1000"
+    volumes:
+      - /opt/capstone-traffic/web/auth.json:/config/auth.json:ro
+      - /opt/capstone-traffic/web/static:/srv:ro
+      - /var/lib/capstone-traffic/web-snapshot:/snapshot:ro
+    mem_limit: 64m
+    cpus: 0.25
+    pids_limit: 48
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    logging:
+      driver: json-file
+      options:
+        max-size: "3m"
+        max-file: "2"
+  web:
+    image: caddy:2.11.7-alpine
+    container_name: capstone-traffic-web
+    restart: unless-stopped
+    depends_on:
+      - web_auth
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /opt/capstone-traffic/web/Caddyfile:/etc/caddy/Caddyfile:ro
+      - /opt/capstone-traffic/web/static:/srv:ro
+      - /var/lib/capstone-traffic/web-snapshot:/snapshot:ro
+      - /var/lib/capstone-traffic/caddy-data:/data
+      - /var/lib/capstone-traffic/caddy-config:/config
+    mem_limit: 96m
+    cpus: 0.25
+    pids_limit: 64
+    read_only: true
+    tmpfs:
+      - /tmp:size=8m
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]
+    security_opt: [no-new-privileges:true]
+    logging:
+      driver: json-file
+      options:
+        max-size: "3m"
+        max-file: "2"

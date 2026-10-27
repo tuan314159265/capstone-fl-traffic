@@ -1,0 +1,285 @@
+[
+  {
+    "intersection_id": "traffic_01",
+    "name": "HCMC traffic cohort point 01",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7835,
+    "longitude": 106.6958,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "b4b6396b2e18e4267f26cec332418c773a17f5ea825ee800ddc43a378d912428",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 75.64,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_02",
+    "name": "HCMC traffic cohort point 02",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7892,
+    "longitude": 106.6996,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "a041080bb30dac68dc80b70b2fab1b22a56c195b9a19101ca711b52b315baa89",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 51.73,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_03",
+    "name": "HCMC traffic cohort point 03",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.8014,
+    "longitude": 106.7102,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "f41ef00887115bde79232ce1760e7acbbc8431276276f26ee15b9a44254c3a9e",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 5.42,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_04",
+    "name": "HCMC traffic cohort point 04",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7994,
+    "longitude": 106.6782,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "6adc2832438c1b60487f38a8ed96fa1c148cc86b797abe16919cc7c8f5f2773f",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 6.67,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_05",
+    "name": "HCMC traffic cohort point 05",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.803,
+    "longitude": 106.6525,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "60dc06e29842d942d4fd16600ba4ce3776073779b18cb804ee970f67334acb7d",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 163.17,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_06",
+    "name": "HCMC traffic cohort point 06",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.813,
+    "longitude": 106.6655,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "64a2832dba16ab2069bdd1617ad8220ba2b486b41dc0fe095b6a66ba0c11c4a3",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 29.49,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_07",
+    "name": "HCMC traffic cohort point 07",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7728,
+    "longitude": 106.6818,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "fcd99b8af71c8c8ef7c70a8dc5089f6d188ddf9d223886d30933ceecd80ef1ed",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 191.13,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_08",
+    "name": "HCMC traffic cohort point 08",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.7859,
+    "longitude": 106.6955,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "ffad03adc00efe13fc4b26d714c2b4dcab0c3c5ce1c4fcd596496f9130648421",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 73.56,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_09",
+    "name": "HCMC traffic cohort point 09",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.776,
+    "longitude": 106.73,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "c1ce8e61116b6e692f6a889d02277658f68f0a0ac4befb3980be5a605c0d5ae5",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 71.53,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_10",
+    "name": "HCMC traffic cohort point 10",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.758,
+    "longitude": 106.683,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "cf9db1f6802b22915f37c0dffa715372d68be42c77b19365e81611c5db5d4aa9",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 6.22,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_11",
+    "name": "HCMC traffic cohort point 11",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.757,
+    "longitude": 106.6765,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "a35b00404c5827400d592a77d94d5f3925321820badffc08c70c0134cdc9f1ff",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 52.5,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_12",
+    "name": "HCMC traffic cohort point 12",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.82,
+    "longitude": 106.69,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "d2695be38b138f40824be88db94eee221a043e15a894c316daa229b21909eb22",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 49.38,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_13",
+    "name": "HCMC traffic cohort point 13",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.8192,
+    "longitude": 106.712,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "0fcd1c4ca59fb843e3555e4a6c11aaf1660c47ced80cbf9c04f438d8baf79fb9",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "initial_snap_distance_m": 103.14,
+      "coordinate_status": "API coverage checked; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_14",
+    "name": "HCMC traffic cohort point 14",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.698673328833964,
+    "longitude": 106.71653775654653,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "bda304b6f8db58eb75ac9f889fef1814949f52f143c388a50cd392ad033fb313",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "coordinate_status": "Positioned on returned road geometry; road name not surveyed"
+    }
+  },
+  {
+    "intersection_id": "traffic_15",
+    "name": "HCMC traffic cohort point 15",
+    "city": "Ho Chi Minh City",
+    "country_code": "VN",
+    "latitude": 10.777814600019285,
+    "longitude": 106.66545910915949,
+    "approach_label": "road_point",
+    "assigned_provider": "tomtom",
+    "acquisition_mode": "flow_segment",
+    "provider_config": {
+      "collection_group": "traffic",
+      "credential_env": "API_TOMTOM_TRAFFIC",
+      "initial_segment_key": "b91cbece8bf50652bbf245c3c026dc2cfd2c168aba74cfda47ffee957d7e58fe",
+      "coverage_checked_at": "2026-10-26T17:08:38.023036+00:00",
+      "coordinate_status": "Positioned on returned road geometry; road name not surveyed"
+    }
+  }
+]

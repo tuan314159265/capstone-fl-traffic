@@ -1,0 +1,10 @@
+FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+WORKDIR /app
+COPY infra/aws/requirements-collector.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+COPY dashboard/sync_site.py /app/dashboard/sync_site.py
+COPY infra/aws/collection_groups.json /app/infra/aws/collection_groups.json
+COPY data/sample_tomtom_ben_thanh_15.json /app/data/sample_tomtom_ben_thanh_15.json
+COPY data/sample_tomtom_traffic_15.json /app/data/sample_tomtom_traffic_15.json
+ENTRYPOINT ["python", "dashboard/sync_site.py"]

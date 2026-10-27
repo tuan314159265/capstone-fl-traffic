@@ -9,6 +9,7 @@ from datetime import datetime, timedelta, timezone
 import ipaddress
 import json
 import os
+import base64
 from pathlib import Path
 import subprocess
 import tarfile
@@ -26,6 +27,23 @@ def run(args, **kwargs):
 
 def main():
     os.umask(0o077)
+    # Merge only approved traffic credentials; preserve the cloud DB password.
+    def read_env(path):
+        values = {}
+        for raw in path.read_text().splitlines():
+            line = raw.strip()
+            if line and not line.startswith("#") and "=" in line:
+                key, value = line.split("=", 1)
+                values[key.strip()] = value.strip().strip("\"'")
+        return values
+    local_env, cloud_env = read_env(ROOT / ".env"), read_env(STATE / "cloud.env")
+    for name in ["API_TOMTOM", "API_TOMTOM_TRAFFIC", "TOMTOM_MONTHLY_REQUEST_BUDGET", "TOMTOM_TRAFFIC_MONTHLY_REQUEST_BUDGET"]:
+        if local_env.get(name):
+            cloud_env[name] = local_env[name]
+    temporary_env = STATE / "cloud.env.tmp"
+    temporary_env.write_text("".join(f"{name}={value}\n" for name, value in cloud_env.items()))
+    temporary_env.chmod(0o600)
+    temporary_env.replace(STATE / "cloud.env")
     terraform = Path.home() / ".local/bin/terraform"
     outputs = json.loads(subprocess.check_output([
         str(terraform), f"-chdir={INFRA}", "output", "-json",
@@ -65,12 +83,12 @@ def main():
         "Unit=capstone-expiry.service\n\n[Install]\nWantedBy=timers.target\n"
     )
 
-    files = [ROOT / "docker-compose.yml", ROOT / "data/scripts/collect_tomtom.py",
-             ROOT / "data/sample_tomtom_ben_thanh_15.json"]
+    files = [ROOT / "docker-compose.yml", ROOT / ".dockerignore", ROOT / "data/scripts/collect_tomtom.py",
+             ROOT / "data/sample_tomtom_ben_thanh_15.json", ROOT / "data/sample_tomtom_traffic_15.json"]
     files.extend(sorted((ROOT / "database/init").glob("*.sql")))
     files.extend(INFRA / name for name in [
         "Dockerfile.collector", "requirements-collector.txt", "compose.cloud.yml",
-        "run_snapshot.py", "backup.sh", "capstone-collector.service",
+        "run_snapshot.py", "collection_groups.json", "backup.sh", "capstone-collector.service",
         "capstone-collector.timer", "capstone-backup.service", "capstone-backup.timer",
         "capstone-expiry.service",
     ])
@@ -81,9 +99,30 @@ def main():
 
     print("Uploading deployment files and private cloud configuration...", flush=True)
     run(["scp", *options, str(archive), f"{target}:/tmp/capstone-deploy.tar.gz"])
+    ssh("sudo systemctl stop capstone-collector.timer; "
+        "while [ \"$(systemctl show capstone-collector.service -p ActiveState --value)\" = activating ]; do sleep 1; done")
     ssh("tar -xzf /tmp/capstone-deploy.tar.gz -C /opt/capstone-traffic")
     run(["scp", *options, str(STATE / "cloud.env"), f"{target}:/opt/capstone-traffic/.env"])
     run(["scp", *options, str(timer), f"{target}:/opt/capstone-traffic/infra/aws/capstone-expiry.timer"])
+    # Account for the one-time API coverage probes without resetting either
+    # durable monthly counter. Receipt IDs make repeated deployment idempotent.
+    receipt_path = STATE / "traffic-probe-receipt.json"
+    if receipt_path.exists():
+        receipt = json.loads(receipt_path.read_text())
+        encoded = base64.b64encode(json.dumps(receipt).encode()).decode()
+        script = (
+            "import base64,json,pathlib; "
+            f"r=json.loads(base64.b64decode('{encoded}')); "
+            "p=pathlib.Path('/var/lib/capstone-traffic/request-budget-traffic.json'); "
+            "s=json.loads(p.read_text()) if p.exists() else {}; "
+            "ids=s.get('_probe_receipts',[]); "
+            "fresh=r['receipt_id'] not in ids; "
+            "s[r['month_utc']]=s.get(r['month_utc'],0)+(r['attempts'] if fresh else 0); "
+            "s['_probe_receipts']=ids+([r['receipt_id']] if fresh else []); "
+            "t=p.with_suffix('.tmp'); t.write_text(json.dumps(s)); t.chmod(0o600); t.replace(p)"
+        )
+        import shlex
+        ssh("sudo python3 -c " + shlex.quote(script))
 
     print("Starting PostGIS and building the collector image...", flush=True)
     ssh("cd /opt/capstone-traffic && chmod 600 .env && "

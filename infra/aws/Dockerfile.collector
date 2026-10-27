@@ -5,5 +5,6 @@ COPY infra/aws/requirements-collector.txt /tmp/requirements-collector.txt
 RUN pip install --no-cache-dir -r /tmp/requirements-collector.txt
 COPY data/scripts/collect_tomtom.py /app/data/scripts/collect_tomtom.py
 COPY data/sample_tomtom_ben_thanh_15.json /app/data/sample_tomtom_ben_thanh_15.json
+COPY data/sample_tomtom_traffic_15.json /app/data/sample_tomtom_traffic_15.json
 USER 10001:10001
 ENTRYPOINT ["python", "data/scripts/collect_tomtom.py"]

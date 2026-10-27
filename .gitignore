@@ -25,6 +25,7 @@ venv/
 
 # env / secrets — chỉ commit .env.example
 .env
+.dashboard.env
 !.env.example
 
 # report build artifacts (Overleaf)
@@ -55,3 +56,6 @@ Thumbs.db
 *.tfvars
 *.tfvars.json
 infra/aws/.state/
+
+results/fedavg_tomtom*/
+results/comparison*/

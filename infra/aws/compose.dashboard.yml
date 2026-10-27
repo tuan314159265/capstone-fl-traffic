@@ -1,0 +1,29 @@
+services:
+  dashboard_sync:
+    build:
+      context: .
+      dockerfile: infra/aws/Dockerfile.dashboard
+    container_name: capstone-dashboard-sync
+    restart: unless-stopped
+    env_file: .dashboard.env
+    environment:
+      WEB_SNAPSHOT_DIR: /publish
+    volumes:
+      - /var/lib/capstone-traffic:/state:ro
+      - /var/lib/capstone-traffic/web-snapshot:/publish:rw
+    depends_on:
+      db:
+        condition: service_healthy
+    mem_limit: 192m
+    cpus: 0.25
+    pids_limit: 64
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    logging:
+      driver: json-file
+      options:
+        max-size: "5m"
+        max-file: "2"

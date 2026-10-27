@@ -1,0 +1,20 @@
+experiment: fedavg_tomtom_pilot
+seed: 42
+dataset:
+  name: tomtom-snapshot
+  path: data/raw/tomtom_training_snapshot.csv
+  sample_minutes: 15
+  hist_len: 8
+  horizons: [1]
+fl:
+  strategy: fedavg
+  num_clients: 0
+  num_rounds: 10
+  local_epochs: 2
+model:
+  backbone: gru
+  hidden_dim: 16
+train:
+  device: cpu
+  batch_size: 16
+  lr: 0.003

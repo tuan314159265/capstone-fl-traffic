@@ -13,14 +13,18 @@ def make_model(config):
     return nn.Sequential(GRUBackbone(hidden_dim=hidden), ForecastHead(hidden, len(config["dataset"]["horizons"])))
 
 
-def train_local(model, loader, epochs: int, learning_rate: float):
+def train_local(model, loader, epochs: int, learning_rate: float, proximal_mu: float = 0.0):
     model.train()
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    reference = [p.detach().clone() for p in model.parameters()] if proximal_mu else None
     total, examples = 0.0, 0
     for _ in range(epochs):
         for x, y in loader:
             optimizer.zero_grad(set_to_none=True)
             loss = nn.functional.mse_loss(model(x), y)
+            if reference is not None:
+                from src.fl.strategies.fedprox import proximal_penalty
+                loss = loss + proximal_penalty(model.parameters(), reference, proximal_mu)
             if not torch.isfinite(loss):
                 raise RuntimeError("Non-finite training loss")
             loss.backward()

@@ -88,6 +88,7 @@ resource "aws_instance" "collector" {
   subnet_id                            = var.subnet_id
   associate_public_ip_address          = true
   key_name                             = aws_key_pair.collector.key_name
+  iam_instance_profile                 = aws_iam_instance_profile.collector_ssm.name
   vpc_security_group_ids               = [aws_security_group.collector.id]
   instance_initiated_shutdown_behavior = "stop"
   user_data                            = file("${path.module}/bootstrap.sh")

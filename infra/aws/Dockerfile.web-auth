@@ -1,0 +1,7 @@
+FROM python:3.12-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+WORKDIR /app
+COPY dashboard/auth_server.py /app/auth_server.py
+COPY dashboard/auth /app/auth
+USER 1000:1000
+ENTRYPOINT ["python", "/app/auth_server.py"]

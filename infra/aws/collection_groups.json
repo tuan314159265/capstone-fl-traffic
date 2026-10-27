@@ -1,0 +1,18 @@
+{
+  "groups": [
+    {
+      "id": "ben_thanh",
+      "key_env": "API_TOMTOM",
+      "points": "data/sample_tomtom_ben_thanh_15.json",
+      "budget_env": "TOMTOM_MONTHLY_REQUEST_BUDGET",
+      "budget_state": "request-budget.json"
+    },
+    {
+      "id": "traffic",
+      "key_env": "API_TOMTOM_TRAFFIC",
+      "points": "data/sample_tomtom_traffic_15.json",
+      "budget_env": "TOMTOM_TRAFFIC_MONTHLY_REQUEST_BUDGET",
+      "budget_state": "request-budget-traffic.json"
+    }
+  ]
+}
